@@ -34,10 +34,16 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+
+
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Requerimiento 1")
+    print("3- Requerimiento 2")
+    print("4- Requerimiento 3")
+    print("5- Requerimiento 4")
+    print("6- Requerimiento 5")
 
 catalog = None
 
@@ -49,10 +55,18 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        cargadatos=controller.loadData()
 
     elif int(inputs[0]) == 2:
         pass
-
+    elif int(inputs[0]) == 3:
+        pass
+    elif int(inputs[0]) == 4:
+        pass
+    elif int(inputs[0]) == 5:
+        pass
+    elif int(inputs[0]) == 6:
+        pass
     else:
         sys.exit(0)
 sys.exit(0)

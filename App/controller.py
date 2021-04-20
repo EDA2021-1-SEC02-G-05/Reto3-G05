@@ -31,7 +31,40 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
+def init():
+    """
+    Llama la funcion de inicializacion  del modelo.
+    """
+   
+    mapa = model.newMapOrdenado()
+    return mapa
+
+
+def loadData(analyzer, crimesfile):
+    """
+    Carga los datos de los archivos CSV en el modelo
+    """
+    mapfile = cf.data_dir + "subsamples-small/context_content_features-small.csv"
+    input_file = csv.DictReader(open(mapfile, encoding="utf-8"),
+                                delimiter=",")
+    for crime in input_file:
+        model.addCrime(analyzer, crime)
+    return analyzer
+
+
+
 # Funciones para la carga de datos
+
+def loadrequerimiento1():
+    pass
+def loadrequerimiento2():
+    pass
+def loadrequerimiento3():
+    pass
+def loadrequerimiento4():
+    pass
+def loadrequerimiento5():
+    pass
 
 # Funciones de ordenamiento
 
