@@ -19,10 +19,16 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+from DISClib.ADT import list as lt
+from DISClib.ADT import orderedmap as om
+from DISClib.DataStructures import mapentry as me
+from DISClib.ADT import map as m
+import datetime
 import config as cf
 import model
 import csv
+
+
 
 
 """
@@ -36,19 +42,63 @@ def init():
     Llama la funcion de inicializacion  del modelo.
     """
    
-    mapa = model.newMapOrdenado()
-    return mapa
+    dicci = model.newMapOrdenado()
+    return dicci
 
 
-def loadData(analyzer, crimesfile):
+def loadData(dicci, crimesfile):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    mapfile = cf.data_dir + "subsamples-small/context_content_features-small.csv"
+    mapfile = cf.data_dir + "context_content_features-small.csv"
     input_file = csv.DictReader(open(mapfile, encoding="utf-8"),
                                 delimiter=",")
-    for crime in input_file:
-        model.addCrime(analyzer, crime)
+    for song in input_file:
+
+        model.addsong(dicci,song)
+    
+    return dicci
+
+
+def loadsize(dicci):
+
+    pepe=model.crimesSize(dicci)
+
+    return pepe
+       
+        
+
+
+        
+
+
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
     return analyzer
 
 

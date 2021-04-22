@@ -45,7 +45,15 @@ def printMenu():
     print("5- Requerimiento 4")
     print("6- Requerimiento 5")
 
-catalog = None
+
+
+
+crimesfile="context_content_features-small.csv"
+
+
+
+# arreglar esto 
+dicci = None
 
 """
 Menu principal
@@ -55,9 +63,15 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        cargadatos=controller.loadData()
+        dicci=controller.init()
 
     elif int(inputs[0]) == 2:
+        controller.loadData(dicci,crimesfile)
+        print('Crimenes cargados: ' + str(controller.loadsize(dicci)))
+
+
+
+
         pass
     elif int(inputs[0]) == 3:
         pass

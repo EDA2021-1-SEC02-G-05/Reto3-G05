@@ -48,25 +48,138 @@ def newMapOrdenado():
 
     Retorna el analizador inicializado.
     """
-    analyzer = {'crimes': None,
-                'dateIndex': None
-                }
+    dicci = {'Instrumentalness': None,'Acousticness': None,"Liveness":None,"Speechiness":None,"Energy":None,"Danceability":None, "Valence":None }
 
-    analyzer['crimes'] = lt.newList('SINGLE_LINKED', compareIds)
-    analyzer['dateIndex'] = om.newMap(omaptype='RBT',
-                                      comparefunction=compareDates)
-    return analyzer
+    dicci['Instrumentalness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-def addCrime(analyzer, crime):
+    dicci['Acousticness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+    dicci['Liveness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+    dicci['Speechiness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+    dicci['Energy'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+    dicci['Danceability'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+
+    dicci['Valence'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+
+
+    return dicci
+
+
+
+
+def addsong(dicci, song):
+
+
+    if om.contains(dicci["Instrumentalness"],song["Instrumentalness"]):
+            jef=om.get(dicci["Instrumentalness"],song["Instrumentalness"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Instrumentalness"],song["Instrumentalness"],lisa)
+
+
+    if om.contains(dicci["Acousticness"],song["Acousticness"]):
+            jef=om.get(dicci["Acousticness"],song["Acousticness"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Acousticness"],song["Acousticness"],lisa)
+
+
+    if om.contains(dicci["Liveness"],song["Liveness"]):
+            jef=om.get(dicci["Liveness"],song["Liveness"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Liveness"],song["Liveness"],lisa)
+
+
+    if om.contains(dicci["Speechiness"],song["Speechiness"]):
+            jef=om.get(dicci["Speechiness"],song["Speechiness"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Speechiness"],song["Speechiness"],lisa)
+
+
+
+    if om.contains(dicci["Energy"],song["Energy"]):
+            jef=om.get(dicci["Energy"],song["Energy"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Energy"],song["Energy"],lisa)
+
+
+    if om.contains(dicci["Danceability"],song["Danceability"]):
+            jef=om.get(dicci["Danceability"],song["Danceability"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Danceability"],song["Danceability"],lisa)
+
+    if om.contains(dicci["Valence"],song["Valence"]):
+            jef=om.get(dicci["Valence"],song["Valence"])
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+            lisa=lt.newList()
+            lt.addLast(lisa,song)
+            om.put(dicci["Valence"],song["Valence"],lisa)
+
+    return dicci
+
+def crimesSize(dicci):
     """
+    Número de crimenes
     """
-    lt.addLast(analyzer['crimes'], crime)
-
-    return analyzer
+    return om.height(dicci['Instrumentalness'])
 
 
 
 
+    
+
+
+
+
+
+
+
+
+
+
+    
 # Funciones para agregar informacion al catalogo
 
 # Funciones para creacion de datos
