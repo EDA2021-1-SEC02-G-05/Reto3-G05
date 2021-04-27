@@ -27,9 +27,11 @@
 
 import config
 from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import map as m
+from DISClib.DataStructures import listiterator as it
 import datetime
 assert config
 """
@@ -48,22 +50,22 @@ def newMapOrdenado():
 
     Retorna el analizador inicializado.
     """
-    dicci = {'Instrumentalness': None,'Acousticness': None,"Liveness":None,"Speechiness":None,"Energy":None,"Danceability":None, "Valence":None }
+    dicci = {}
 
-    dicci['Instrumentalness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['instrumentalness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-    dicci['Acousticness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['acousticness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-    dicci['Liveness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['liveness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-    dicci['Speechiness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['speechiness'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-    dicci['Energy'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['energy'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
-    dicci['Danceability'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['danceability'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
 
-    dicci['Valence'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    dicci['valence'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
 
 
@@ -75,8 +77,20 @@ def newMapOrdenado():
 def addsong(dicci, song):
 
 
-    if om.contains(dicci["Instrumentalness"],song["Instrumentalness"]):
-            jef=om.get(dicci["Instrumentalness"],song["Instrumentalness"])
+    if om.contains(dicci["instrumentalness"],float(song["instrumentalness"])):
+            jef=om.get(dicci["instrumentalness"],float(song["instrumentalness"]))
+            lis = me.getValue(jef)
+            lt.addLast(lis,song)
+
+    else:
+
+            lisa=lt.newList()
+            om.put(dicci["instrumentalness"],float(song["instrumentalness"]),lisa)
+            lt.addLast(lisa,song)
+
+
+    if om.contains(dicci["acousticness"],float(song["acousticness"])):
+            jef=om.get(dicci["acousticness"],float(song["acousticness"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
@@ -84,11 +98,11 @@ def addsong(dicci, song):
 
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Instrumentalness"],song["Instrumentalness"],lisa)
+            om.put(dicci["acousticness"],float(song["acousticness"]),lisa)
 
 
-    if om.contains(dicci["Acousticness"],song["Acousticness"]):
-            jef=om.get(dicci["Acousticness"],song["Acousticness"])
+    if om.contains(dicci["liveness"],float(song["liveness"])):
+            jef=om.get(dicci["liveness"],float(song["liveness"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
@@ -96,11 +110,11 @@ def addsong(dicci, song):
 
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Acousticness"],song["Acousticness"],lisa)
+            om.put(dicci["liveness"],float(song["liveness"]),lisa)
 
 
-    if om.contains(dicci["Liveness"],song["Liveness"]):
-            jef=om.get(dicci["Liveness"],song["Liveness"])
+    if om.contains(dicci["speechiness"],float(song["speechiness"])):
+            jef=om.get(dicci["speechiness"],float(song["speechiness"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
@@ -108,11 +122,12 @@ def addsong(dicci, song):
 
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Liveness"],song["Liveness"],lisa)
+            om.put(dicci["speechiness"],float(song["speechiness"]),lisa)
 
 
-    if om.contains(dicci["Speechiness"],song["Speechiness"]):
-            jef=om.get(dicci["Speechiness"],song["Speechiness"])
+
+    if om.contains(dicci["energy"],float(song["energy"])):
+            jef=om.get(dicci["energy"],float(song["energy"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
@@ -120,12 +135,11 @@ def addsong(dicci, song):
 
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Speechiness"],song["Speechiness"],lisa)
+            om.put(dicci["energy"],float(song["energy"]),lisa)
 
 
-
-    if om.contains(dicci["Energy"],song["Energy"]):
-            jef=om.get(dicci["Energy"],song["Energy"])
+    if om.contains(dicci["danceability"],float(song["danceability"])):
+            jef=om.get(dicci["danceability"],float(song["danceability"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
@@ -133,37 +147,34 @@ def addsong(dicci, song):
 
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Energy"],song["Energy"],lisa)
+            om.put(dicci["danceability"],float(song["danceability"]),lisa)
 
-
-    if om.contains(dicci["Danceability"],song["Danceability"]):
-            jef=om.get(dicci["Danceability"],song["Danceability"])
-            lis = me.getValue(jef)
-            lt.addLast(lis,song)
-
-    else:
-
-            lisa=lt.newList()
-            lt.addLast(lisa,song)
-            om.put(dicci["Danceability"],song["Danceability"],lisa)
-
-    if om.contains(dicci["Valence"],song["Valence"]):
-            jef=om.get(dicci["Valence"],song["Valence"])
+    if om.contains(dicci["valence"],float(song["valence"])):
+            jef=om.get(dicci["valence"],float(song["valence"]))
             lis = me.getValue(jef)
             lt.addLast(lis,song)
 
     else:
             lisa=lt.newList()
             lt.addLast(lisa,song)
-            om.put(dicci["Valence"],song["Valence"],lisa)
+            om.put(dicci["valence"],float(song["valence"]),lisa)
 
     return dicci
+
+
+def crimesHeight(dicci):
+    """
+    Número de crimenes
+    """
+    return om.height(dicci['instrumentalness']),om.height(dicci['acousticness']),om.height(dicci['liveness']),om.height(dicci['speechiness']),om.height(dicci['energy']),om.height(dicci['danceability']),om.height(dicci['valence'])
 
 def crimesSize(dicci):
     """
     Número de crimenes
     """
-    return om.height(dicci['Instrumentalness'])
+    return om.size(dicci['instrumentalness']),om.size(dicci['acousticness']),om.size(dicci['liveness']),om.size(dicci['speechiness']),om.size(dicci['energy']),om.size(dicci['danceability']),om.size(dicci['valence'])
+
+
 
 
 
@@ -186,8 +197,42 @@ def crimesSize(dicci):
 
 # Funciones de consulta
 
-def requerimiento1():
-    pass
+def requerimiento1(dicci,nombre,num1,num2):
+
+    d = om.values(dicci[nombre],num1,num2)
+    iterador = it.newIterator(d)
+    diccionario = mp.newMap()
+    x = 0
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+
+        x += lt.size(actual)
+
+        
+        ite = it.newIterator(actual)
+
+        while it.hasNext(ite):
+
+            actual = it.next(ite)
+
+            if mp.contains(diccionario,actual["artist_id"]):
+
+                ola = mp.get(diccionario,actual["artist_id"])
+                listo = me.getValue(ola)
+
+                lt.addLast(listo,actual)
+            else:
+
+                listo = lt.newList()
+                mp.put(diccionario,actual["artist_id"],listo)
+                lt.addLast(listo,actual)
+
+    alejita = mp.size(diccionario)
+
+    return x, alejita
+
+    
 def requerimiento2():
     pass
 def requerimiento3():

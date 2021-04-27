@@ -50,21 +50,49 @@ def loadData(dicci, crimesfile):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    mapfile = cf.data_dir + "context_content_features-small.csv"
-    input_file = csv.DictReader(open(mapfile, encoding="utf-8"),
+    mapfile1 = cf.data_dir + "context_content_features-small.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
                                 delimiter=",")
+
+    mapfile2 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
+    input_file2= csv.DictReader(open(mapfile2, encoding="utf-8"),
+                                delimiter=",")
+    mapfile3 = cf.data_dir + "sentiment_values.csv"
+    input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
+                                delimiter=",")
+    
+    
     for song in input_file:
 
         model.addsong(dicci,song)
-    
+
+  
     return dicci
 
+def loadrequerimiento1(dicci,nombre,num1,num2):
 
-def loadsize(dicci):
+    popo = model.requerimiento1(dicci,nombre,num1,num2)
 
-    pepe=model.crimesSize(dicci)
+    return popo
+
+
+def loadHeight(dicci):
+
+    pepe=model.crimesHeight(dicci)
 
     return pepe
+
+def loadSize(dicci):
+
+    pepo=model.crimesSize(dicci)
+
+    return pepo
+
+
+
+
+
+
        
         
 
@@ -99,14 +127,11 @@ def loadsize(dicci):
 
 
 
-    return analyzer
 
 
 
 # Funciones para la carga de datos
 
-def loadrequerimiento1():
-    pass
 def loadrequerimiento2():
     pass
 def loadrequerimiento3():
