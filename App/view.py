@@ -45,13 +45,12 @@ def printMenu():
     print("Bienvenido")
     print("Inicializar el diccionario")
     print("2- Cargar información en el catálogo")
-    print("3- Requerimiento 1")
-    print("4- Requerimiento 2")
-    print("5- Requerimiento 3")
-    print("6- Requerimiento 4")
-    print("7- Requerimiento 5")
-
-
+    print("3- Analisis de datos(Cantidad de registros de eventos, autores,pistas")
+    print("4- Requerimiento 1")
+    print("5- Requerimiento 2")
+    print("6- Requerimiento 3")
+    print("7- Requerimiento 4")
+    print("8- Requerimiento 5")
 
 
 crimesfile="context_content_features-small.csv"
@@ -69,14 +68,26 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         dicci=controller.init()
+        info = controller.init2()
         print(dicci)
+        print(info)
 
     elif int(inputs[0]) == 2:
-        controller.loadData(dicci,crimesfile)
+        controller.loadData(dicci,crimesfile) #arbol por caracteristicas de evento
+        t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
 
+    
+        
+    
     elif int(inputs[0]) == 3:
+
+        o = controller.loadparte2(info)
+
+        print("El total de registros de eventos de escucha cargados son ",o)
+
+    elif int(inputs[0]) == 4:
 
         nombre = str(input("Ingrese el nombre de la caracteristica de contenido: "))
         num1 = float(input("Ingrese el limite inferior: "))
@@ -87,14 +98,115 @@ while True:
         print("El numero de reproducciones de piezas musicales que tiene ",str(nombre),"son ",i[0])
         print("El numero de artistas unicos(sin repeticiones): ", i[1])
 
-    
         
-    elif int(inputs[0]) == 4:
-        pass
+
     elif int(inputs[0]) == 5:
         pass
     elif int(inputs[0]) == 6:
         pass
+    elif int(inputs[0]) == 7:
+
+        nom1 = str(input("Ingrese el genero que desea: "))
+        nom2 = str(input("Ingrese el genero que desea: "))
+        nom3 = str(input("Ingrese el genero que desea: "))
+
+        nom4 = ""
+        des1 = ""
+        des2 = ""
+
+        deseo = str(input("¿Desea agregar un nuevo genero? " ))
+        if deseo == "si":
+            nom4 = str(input("Ingrese el nombre de el nuevo genero: "))
+            des1 = int(input("Ingrese el limite inferior: "))
+            des2 = int(input("Ingrese el limite superior: "))
+
+        else:
+            print("vale perfecto no hay nuevo genero para agregar")
+           
+        tempo = controller.loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2)
+
+        print("El numero total de reproducciones es ",tempo[3])
+
+        print("-"*50)
+        print("-"*50)
+
+        print("El numero de reproducciones de ",nom1," es ",tempo[0]," con ", tempo[5]," artistas diferentes")
+
+        print("Los 10 primeros artistas de ",nom1,"son: ")
+
+        print("Artista 1",lt.getElement(tempo[9],0))
+        print("Artista 2",lt.getElement(tempo[9],1))
+        print("Artista 3",lt.getElement(tempo[9],2))
+        print("Artista 4",lt.getElement(tempo[9],3))
+        print("Artista 5",lt.getElement(tempo[9],4))
+        print("Artista 6",lt.getElement(tempo[9],5))
+        print("Artista 7",lt.getElement(tempo[9],6))
+        print("Artista 8",lt.getElement(tempo[9],7))
+        print("Artista 9",lt.getElement(tempo[9],8))
+        print("Artista 10",lt.getElement(tempo[9],9))
+
+
+        print("-"*100)
+
+        print("El numero de reproducciones de ",nom2," es ",tempo[1]," con ", tempo[6]," artistas diferentes")
+
+        print("Los 10 primeros artistas de ",nom2,"son: ")
+
+        print("Artista 1",lt.getElement(tempo[10],0))
+        print("Artista 2",lt.getElement(tempo[10],1))
+        print("Artista 3",lt.getElement(tempo[10],2))
+        print("Artista 4",lt.getElement(tempo[10],3))
+        print("Artista 5",lt.getElement(tempo[10],4))
+        print("Artista 6",lt.getElement(tempo[10],5))
+        print("Artista 7",lt.getElement(tempo[10],6))
+        print("Artista 8",lt.getElement(tempo[10],7))
+        print("Artista 9",lt.getElement(tempo[10],8))
+        print("Artista 10",lt.getElement(tempo[10],9))
+
+        print("-"*100)
+
+        print("El numero de reproducciones de ",nom3," es ",tempo[2]," con ", tempo[7]," artistas diferentes")
+
+        print("Los 10 primeros artistas de ",nom3,"son: ")
+
+        print("Artista 1",lt.getElement(tempo[11],0))
+        print("Artista 2",lt.getElement(tempo[11],1))
+        print("Artista 3",lt.getElement(tempo[11],2))
+        print("Artista 4",lt.getElement(tempo[11],3))
+        print("Artista 5",lt.getElement(tempo[11],4))
+        print("Artista 6",lt.getElement(tempo[11],5))
+        print("Artista 7",lt.getElement(tempo[11],6))
+        print("Artista 8",lt.getElement(tempo[11],7))
+        print("Artista 9",lt.getElement(tempo[11],8))
+        print("Artista 10",lt.getElement(tempo[11],9))
+
+
+
+        print("-"*100)
+
+        print("El nombre del genero ",nom4,"tiene un total de",tempo[4]," con ", tempo[8]," artistas diferentes")
+
+        print("Los 10 primeros artistas de ",nom4,"son: ")
+
+        print("Artista 1",lt.getElement(tempo[12],0))
+        print("Artista 2",lt.getElement(tempo[12],1))
+        print("Artista 3",lt.getElement(tempo[12],2))
+        print("Artista 4",lt.getElement(tempo[12],3))
+        print("Artista 5",lt.getElement(tempo[12],4))
+        print("Artista 6",lt.getElement(tempo[12],5))
+        print("Artista 7",lt.getElement(tempo[12],6))
+        print("Artista 8",lt.getElement(tempo[12],7))
+        print("Artista 9",lt.getElement(tempo[12],8))
+        print("Artista 10",lt.getElement(tempo[12],9))
+
+     
+ 
+
+        
+
+            
+
+        
     else:
         sys.exit(0)
 sys.exit(0)

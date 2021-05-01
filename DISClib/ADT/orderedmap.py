@@ -108,7 +108,7 @@ def size(map):
     Retorna el número de entradas en la tabla de simbolos
     Args:
         map: La tabla de simbolos
-    Returns:
+    Returns:a
         El número de elementos en la tabla
     Raises:
         Exception

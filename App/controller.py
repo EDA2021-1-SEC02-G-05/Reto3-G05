@@ -41,9 +41,14 @@ def init():
     """
     Llama la funcion de inicializacion  del modelo.
     """
-   
     dicci = model.newMapOrdenado()
     return dicci
+
+def init2():
+
+    info1 = model.newOrderMap()
+
+    return info1
 
 
 def loadData(dicci, crimesfile):
@@ -69,6 +74,34 @@ def loadData(dicci, crimesfile):
   
     return dicci
 
+
+def loadData2(dicci, crimesfile):
+    """
+    Carga los datos de los archivos CSV en el modelo
+    """
+    mapfile1 = cf.data_dir + "context_content_features-small.csv"
+    input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
+                                delimiter=",")
+
+    
+    for song in input_file:
+
+        model.addCancion(dicci,song)
+
+  
+    return dicci
+
+
+def loadparte2(info):
+
+    return model.parte2(info)
+
+def loadtablageneros(nom,nombre,des1,des2):
+
+    d = model.tablageneros(nom,nombre,des1,des2)
+
+    return d
+
 def loadrequerimiento1(dicci,nombre,num1,num2):
 
     popo = model.requerimiento1(dicci,nombre,num1,num2)
@@ -88,56 +121,16 @@ def loadSize(dicci):
 
     return pepo
 
-
-
-
-
-
-       
-        
-
-
-        
-
-
-
-        
-
-        
-
-        
-
-        
-
-        
-        
-
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Funciones para la carga de datos
 
 def loadrequerimiento2():
     pass
 def loadrequerimiento3():
     pass
-def loadrequerimiento4():
-    pass
+def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
+    tempo = model.requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2)
+    
+    return tempo
 def loadrequerimiento5():
     pass
 
