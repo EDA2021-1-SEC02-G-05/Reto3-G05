@@ -42,16 +42,6 @@ los mismos.
 # Construccion de modelos
 
 def newMapOrdenado():
-    """ Inicializa el analizador
-
-    Crea una lista vacia para guardar todos los crimenes
-    Se crean indices (Maps) por los siguientes criterios:
-    -Fechas
-
-    Retorna el analizador inicializado.
-    """
-
-
     
     dicci = {}
 
@@ -79,6 +69,33 @@ def newOrderMap():
     info["generos"] =  om.newMap(omaptype='BRT',comparefunction=compareTempo)
 
     return info
+
+def newOrderMapSentimiento():
+
+    diccio={"sentimiento":None}
+
+    diccio["sentimiento"] =  om.newMap(omaptype='BRT')
+
+    return diccio
+
+def addFecha(diccio, song2):
+    
+    fecha = song2["created_at"]
+    filtro = fecha[11:19]
+    quita =filtro.replace(":","")
+    if om.contains(diccio["sentimiento"],quita):
+        jef=om.get(diccio["sentimiento"],quita)
+        lis = me.getValue(jef)
+        lt.addLast(lis,song2)
+
+    else:
+
+        lisa=lt.newList()
+        om.put(diccio["sentimiento"],quita,lisa)
+        lt.addLast(lisa,song2)
+
+    return diccio
+
 
 def addCancion(info, song):
 
@@ -268,8 +285,8 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     
 
     gene1 = tablageneros(nom1,des1,des2)
-    llave = mp.get(gene1,nom1)
-    valor = me.getValue(llave)
+    llave = mp.get(gene1,nom1)#Da la llave y el valor de la tabla de hash 
+    valor = me.getValue(llave)# El valor de la llave del genero 
     rango1 = om.values(info["generos"],valor[0],valor[1])
 
     diccionario = mp.newMap()
@@ -456,7 +473,7 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     llave1=mp.keySet(diccionarionuevo)
     llave2=mp.keySet(diccionarionuevo2)
     llave3=mp.keySet(diccionarionuevo3)
-    llave4=mp.keySet(diccionarionuevo4)
+    
 
     iterador = it.newIterator(llave1)
     primero = lt.newList()
@@ -491,24 +508,13 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     artistas3= lt.subList(tercero,0,12)
 
-
-    iterador = it.newIterator(llave4)
-    cuarto = lt.newList()
-    while it.hasNext(iterador):
-
-        actu = it.next(iterador)
-
-        lt.addLast(cuarto,actu)
-
-    artistas4= lt.subList(cuarto,0,12)
-
-
-    return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3,artistas4
-
-
+    return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3
 
     
-def requerimiento5():
+def requerimiento5(diccio,rangoinf,rangomay):
+
+        
+
     pass
 
 # Funciones utilizadas para comparar elementos dentro de una lista

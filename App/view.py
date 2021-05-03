@@ -54,6 +54,7 @@ def printMenu():
 
 
 crimesfile="context_content_features-small.csv"
+user_track="user_track_hashtag_timestamp-small.csv"
 
 
 # arreglar esto 
@@ -69,14 +70,20 @@ while True:
         print("Cargando información de los archivos ....")
         dicci=controller.init()
         info = controller.init2()
+        diccio = controller.init3()
         print(dicci)
         print(info)
+        print(diccio)
 
     elif int(inputs[0]) == 2:
         controller.loadData(dicci,crimesfile) #arbol por caracteristicas de evento
         t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
+        f = controller.loadData3(diccio,user_track) #arbol organizado por fecha
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
+
+
+        print(f)
 
     
         
@@ -179,32 +186,6 @@ while True:
         print("Artista 8",lt.getElement(tempo[11],7))
         print("Artista 9",lt.getElement(tempo[11],8))
         print("Artista 10",lt.getElement(tempo[11],9))
-
-
-
-        print("-"*100)
-
-        print("El nombre del genero ",nom4,"tiene un total de",tempo[4]," con ", tempo[8]," artistas diferentes")
-
-        print("Los 10 primeros artistas de ",nom4,"son: ")
-
-        print("Artista 1",lt.getElement(tempo[12],0))
-        print("Artista 2",lt.getElement(tempo[12],1))
-        print("Artista 3",lt.getElement(tempo[12],2))
-        print("Artista 4",lt.getElement(tempo[12],3))
-        print("Artista 5",lt.getElement(tempo[12],4))
-        print("Artista 6",lt.getElement(tempo[12],5))
-        print("Artista 7",lt.getElement(tempo[12],6))
-        print("Artista 8",lt.getElement(tempo[12],7))
-        print("Artista 9",lt.getElement(tempo[12],8))
-        print("Artista 10",lt.getElement(tempo[12],9))
-
-     
- 
-
-        
-
-            
 
         
     else:

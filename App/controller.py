@@ -50,6 +50,12 @@ def init2():
 
     return info1
 
+def init3():
+
+    info2 = model.newOrderMapSentimiento()
+
+    return info2
+
 
 def loadData(dicci, crimesfile):
     """
@@ -58,14 +64,6 @@ def loadData(dicci, crimesfile):
     mapfile1 = cf.data_dir + "context_content_features-small.csv"
     input_file = csv.DictReader(open(mapfile1, encoding="utf-8"),
                                 delimiter=",")
-
-    mapfile2 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
-    input_file2= csv.DictReader(open(mapfile2, encoding="utf-8"),
-                                delimiter=",")
-    mapfile3 = cf.data_dir + "sentiment_values.csv"
-    input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
-                                delimiter=",")
-    
     
     for song in input_file:
 
@@ -90,6 +88,43 @@ def loadData2(dicci, crimesfile):
 
   
     return dicci
+
+def loadData3(diccio, crimesfile):
+    """
+    Carga los datos de los archivos CSV en el modelo
+    """
+
+    mapfile2 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
+    input_file2= csv.DictReader(open(mapfile2, encoding="utf-8"),
+                                delimiter=",")
+
+
+    
+    for song2 in input_file2:
+
+        model.addFecha(diccio,song2)
+
+  
+    return diccio
+
+def loadData4(dicci, crimesfile):
+    """
+    Carga los datos de los archivos CSV en el modelo
+    """
+    mapfile3 = cf.data_dir + "sentiment_values.csv"
+    input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
+                                delimiter=",")
+
+
+    
+    for song3 in input_file3:
+
+        model.addCancion(dicci,song)
+
+  
+    return dicci
+
+
 
 
 def loadparte2(info):
