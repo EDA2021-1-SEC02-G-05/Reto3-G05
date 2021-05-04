@@ -76,23 +76,21 @@ while True:
         print(diccio)
 
     elif int(inputs[0]) == 2:
-        controller.loadData(dicci,crimesfile) #arbol por caracteristicas de evento
+        controller.loadData(dicci,crimesfile) #arboles por caracteristicas de evento
         t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
         f = controller.loadData3(diccio,user_track) #arbol organizado por fecha
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
-
-
-        print(f)
-
     
-        
     
     elif int(inputs[0]) == 3:
 
         o = controller.loadparte2(info)
 
-        print("El total de registros de eventos de escucha cargados son ",o)
+        print("El total de registros de eventos de escucha cargados son: ",o[0])
+        print("La altura del arbol es: ",o[1])
+        print("El total de artistas es: ",o[2])
+        print("El total de pistas de audio son: ",o[3])
 
     elif int(inputs[0]) == 4:
 
@@ -105,12 +103,37 @@ while True:
         print("El numero de reproducciones de piezas musicales que tiene ",str(nombre),"son ",i[0])
         print("El numero de artistas unicos(sin repeticiones): ", i[1])
 
-        
+        print("Tiempo [ms]: ", f"{i[2]:.3f}", " || ",
+        "Memoria [kB]: ", f"{i[3]:.3f}")
 
     elif int(inputs[0]) == 5:
-        pass
+
+        d1=float(input("INGRESE D1: "))
+        d2=float(input("INGRESE D2: "))
+        e1=float(input("INGRESE E1: "))
+        e2=float(input ("INGRESE E2: "))
+        otu= controller.loadrequerimiento2(dicci,d1,d2,e1,e2)
+        
+        print("Tiempo [ms]: ", f"{otu[1]:.3f}", " || ",
+        "Memoria [kB]: ", f"{otu[2]:.3f}")
+
+        print(" El numero total de pistas es: ", otu[0])
+
     elif int(inputs[0]) == 6:
-        pass
+
+        i1=float(input("INGRESE I1: "))
+        i2=float(input("INGRESE I2: "))
+        t1=float(input("INGRESE T1: "))
+        t2=float(input ("INGRESE T2: "))
+
+        panaca=controller.loadrequerimiento3(dicci,i1,i2,t1,t2) 
+
+        print("Tiempo [ms]: ", f"{panaca[1]:.3f}", " || ",
+        "Memoria [kB]: ", f"{panaca[2]:.3f}")
+
+        print(panaca[0])
+
+        
     elif int(inputs[0]) == 7:
 
         nom1 = str(input("Ingrese el genero que desea: "))

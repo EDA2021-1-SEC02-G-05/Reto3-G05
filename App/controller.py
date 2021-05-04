@@ -27,6 +27,9 @@ import datetime
 import config as cf
 import model
 import csv
+import time
+import tracemalloc
+
 
 
 
@@ -119,29 +122,102 @@ def loadData4(dicci, crimesfile):
     
     for song3 in input_file3:
 
-        model.addCancion(dicci,song)
+        model.addCancion(dicci,song3)
 
   
     return dicci
-
-
-
 
 def loadparte2(info):
 
     return model.parte2(info)
 
-def loadtablageneros(nom,nombre,des1,des2):
-
-    d = model.tablageneros(nom,nombre,des1,des2)
-
-    return d
-
 def loadrequerimiento1(dicci,nombre,num1,num2):
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
 
     popo = model.requerimiento1(dicci,nombre,num1,num2)
 
-    return popo
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+
+    return popo[0],popo[1],delta_time,delta_memory
+
+def loadrequerimiento2(dicci,d1,d2,e1,e2):
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+
+    lupita=model.requerimiento2(dicci,d1,d2,e1,e2)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+
+    return lupita,delta_time,delta_memory
+
+def loadrequerimiento3(dicci,i1,i2,t1,t2):
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+
+
+    pepeelgruillo=model.requerimiento3(dicci,i1,i2,t1,t2)
+
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    return  pepeelgruillo,delta_time,delta_memory
+
+def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+
+
+    tempo = model.requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    
+    return tempo,delta_time,delta_memory
+
+
+
+def loadrequerimiento5():
+    pass
+
 
 
 def loadHeight(dicci):
@@ -156,18 +232,38 @@ def loadSize(dicci):
 
     return pepo
 
-# Funciones para la carga de datos
 
-def loadrequerimiento2():
-    pass
-def loadrequerimiento3():
-    pass
-def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
-    tempo = model.requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2)
-    
-    return tempo
-def loadrequerimiento5():
-    pass
+
+
+
+def getTime():
+    """
+    devuelve el instante tiempo de procesamiento en milisegundos
+    """
+    return float(time.perf_counter()*1000)
+
+
+def getMemory():
+    """
+    toma una muestra de la memoria alocada en instante de tiempo
+    """
+    return tracemalloc.take_snapshot()
+
+
+def deltaMemory(start_memory, stop_memory):
+    """
+    calcula la diferencia en memoria alocada del programa entre dos
+    instantes de tiempo y devuelve el resultado en bytes (ej.: 2100.0 B)
+    """
+    memory_diff = stop_memory.compare_to(start_memory, "filename")
+    delta_memory = 0.0
+
+    # suma de las diferencias en uso de memoria
+    for stat in memory_diff:
+        delta_memory = delta_memory + stat.size_diff
+    # de Byte -> kByte
+    delta_memory = delta_memory/1024.0
+    return delta_memory
 
 # Funciones de ordenamiento
 

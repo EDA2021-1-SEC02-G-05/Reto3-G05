@@ -114,9 +114,61 @@ def addCancion(info, song):
 
 def parte2(info):
 
-    tamañodatos = om.size(info["generos"])
-   
-    return tamañodatos
+    tamano = om.size(info["generos"])
+    altura = om.height(info["generos"])
+
+    #numero de autores sin repetirse
+    valores = om.values(info["generos"],0,tamano)
+    iterador = it.newIterator(valores)
+    diccionariototal = mp.newMap()
+
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+        
+        ite = it.newIterator(actual)
+
+        while it.hasNext(ite):
+
+            actual = it.next(ite)
+
+            if mp.contains(diccionariototal,actual["artist_id"]):
+
+                ola = mp.get(diccionariototal,actual["artist_id"])
+                listo = me.getValue(ola)
+
+                lt.addLast(listo,actual)
+            else:
+
+                listo = lt.newList()
+                mp.put(diccionariototal,actual["artist_id"],listo)
+                lt.addLast(listo,actual)
+
+    tamanototal = mp.size(diccionariototal)
+
+    val = om.values(info["generos"],0,tamano)
+    iterador = it.newIterator(val)
+    x = 0
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+
+        x += lt.size(actual)
+
+    return tamano,altura,tamanototal,x
+
+def crimesHeight(dicci):
+    """
+    Número de crimenes
+    """
+    return om.height(dicci['instrumentalness']),om.height(dicci['acousticness']),om.height(dicci['liveness']),om.height(dicci['speechiness']),om.height(dicci['energy']),om.height(dicci['danceability']),om.height(dicci['valence'])
+
+def crimesSize(dicci):
+    """
+    Número de crimenes
+    """
+    return om.size(dicci['instrumentalness']),om.size(dicci['acousticness']),om.size(dicci['liveness']),om.size(dicci['speechiness']),om.size(dicci['energy']),om.size(dicci['danceability']),om.size(dicci['valence'])
+
 
 def tablageneros(nom,des1,des2):
 
@@ -228,19 +280,6 @@ def addsong(dicci, song):
     return dicci
 
 
-def crimesHeight(dicci):
-    """
-    Número de crimenes
-    """
-    return om.height(dicci['instrumentalness']),om.height(dicci['acousticness']),om.height(dicci['liveness']),om.height(dicci['speechiness']),om.height(dicci['energy']),om.height(dicci['danceability']),om.height(dicci['valence'])
-
-def crimesSize(dicci):
-    """
-    Número de crimenes
-    """
-    return om.size(dicci['instrumentalness']),om.size(dicci['acousticness']),om.size(dicci['liveness']),om.size(dicci['speechiness']),om.size(dicci['energy']),om.size(dicci['danceability']),om.size(dicci['valence'])
-
-
 def requerimiento1(dicci,nombre,num1,num2):
 
     d = om.values(dicci[nombre],num1,num2)
@@ -274,16 +313,107 @@ def requerimiento1(dicci,nombre,num1,num2):
 
     alejita = mp.size(diccionario)
 
-    return x, alejita 
+    return x,alejita 
 
     
-def requerimiento2():
-    pass
-def requerimiento3():
-    pass
+
+def requerimiento2(dicci,d1,d2,e1,e2):
+
+
+
+    d = om.values(dicci["danceability"],d1,d2)
+    diccionario = mp.newMap()
+
+
+    iterador = it.newIterator(d)
+
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+
+        ite = it.newIterator(actual)
+
+
+        while it.hasNext(ite):
+
+
+            actual = it.next(ite)
+
+
+
+            if float(actual["energy"]) >= e1 and float(actual["energy"]) <= e2:
+
+
+
+                if mp.contains(diccionario,actual["track_id"]):
+
+                    ola = mp.get(diccionario,actual["track_id"])
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,actual["track_id"],listo)
+                    lt.addLast(listo,actual)
+
+
+    alejita = mp.size(diccionario)
+
+    spiderman=mp.valueSet(diccionario)
+
+    return alejita
+
+
+def requerimiento3(dicci,i1,i2,t1,t2):
+
+    d = om.values(dicci["instrumentalness"],i1,i2)
+    diccionario = mp.newMap()
+
+
+    iterador = it.newIterator(d)
+
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+
+        ite = it.newIterator(actual)
+
+
+        while it.hasNext(ite):
+
+
+            actual = it.next(ite)
+
+
+
+            if float(actual["tempo"]) >= t1 and float(actual["tempo"]) <= t2:
+
+
+
+                if mp.contains(diccionario,actual["track_id"]):
+
+                    ola = mp.get(diccionario,actual["track_id"])
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,actual["track_id"],listo)
+                    lt.addLast(listo,actual)
+
+
+    alejita = mp.size(diccionario)
+
+    return alejita
+
 def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     
-
     gene1 = tablageneros(nom1,des1,des2)
     llave = mp.get(gene1,nom1)#Da la llave y el valor de la tabla de hash 
     valor = me.getValue(llave)# El valor de la llave del genero 
@@ -512,10 +642,28 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     
 def requerimiento5(diccio,rangoinf,rangomay):
-
         
 
-    pass
+        du = om.values(diccio["sentimiento"],rangoinf,rangomay)
+        iterador = it.newIterator(du)
+
+        
+        while it.hasNext(iterador):
+
+            actu = it.next(iterador)
+            
+            iterardentro = it.newIterator(actu)
+
+            while it.hasNext(iterardentro):
+
+                actual = it.next(iterardentro)
+
+
+
+
+
+
+    
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
