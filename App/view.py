@@ -144,7 +144,7 @@ while True:
         des1 = ""
         des2 = ""
 
-        deseo = str(input("¿Desea agregar un nuevo genero? " ))
+        deseo = str(input("¿Desea agregar un nuevo genero?: " ))
         if deseo == "si":
             nom4 = str(input("Ingrese el nombre de el nuevo genero: "))
             des1 = int(input("Ingrese el limite inferior: "))
@@ -155,10 +155,16 @@ while True:
            
         tempo = controller.loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2)
 
+        print("Tiempo [ms]: ", f"{tempo[12]:.3f}", " || ",
+        "Memoria [kB]: ", f"{tempo[13]:.3f}")
+    
+        print("-"*50)
+        print("-"*50)
+
         print("El numero total de reproducciones es ",tempo[3])
 
-        print("-"*50)
-        print("-"*50)
+        print("-"*100)
+
 
         print("El numero de reproducciones de ",nom1," es ",tempo[0]," con ", tempo[5]," artistas diferentes")
 
@@ -210,7 +216,10 @@ while True:
         print("Artista 9",lt.getElement(tempo[11],8))
         print("Artista 10",lt.getElement(tempo[11],9))
 
-        
+    elif int(inputs[0]) == 8:
+
+        pass
+   
     else:
         sys.exit(0)
 sys.exit(0)

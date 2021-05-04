@@ -211,7 +211,7 @@ def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    return tempo,delta_time,delta_memory
+    return tempo[0],tempo[1],tempo[2],tempo[3],tempo[4],tempo[5],tempo[6],tempo[7],tempo[8],tempo[9],tempo[10],tempo[11],delta_time,delta_memory
 
 
 
