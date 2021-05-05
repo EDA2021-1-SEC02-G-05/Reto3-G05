@@ -33,6 +33,7 @@ from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import map as m
 from DISClib.DataStructures import listiterator as it
 import datetime
+import random
 assert config
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -72,9 +73,9 @@ def newOrderMap():
 
 def newOrderMapSentimiento():
 
-    diccio={"sentimiento":None}
+    diccio={"fecha":None}
 
-    diccio["sentimiento"] =  om.newMap(omaptype='BRT')
+    diccio["fecha"] =  om.newMap(omaptype='BRT')
 
     return diccio
 
@@ -83,15 +84,15 @@ def addFecha(diccio, song2):
     fecha = song2["created_at"]
     filtro = fecha[11:19]
     quita =filtro.replace(":","")
-    if om.contains(diccio["sentimiento"],quita):
-        jef=om.get(diccio["sentimiento"],quita)
+    if om.contains(diccio["fecha"],quita):
+        jef=om.get(diccio["fecha"],quita)
         lis = me.getValue(jef)
         lt.addLast(lis,song2)
 
     else:
 
         lisa=lt.newList()
-        om.put(diccio["sentimiento"],quita,lisa)
+        om.put(diccio["fecha"],quita,lisa)
         lt.addLast(lisa,song2)
 
     return diccio
@@ -170,7 +171,7 @@ def crimesSize(dicci):
     return om.size(dicci['instrumentalness']),om.size(dicci['acousticness']),om.size(dicci['liveness']),om.size(dicci['speechiness']),om.size(dicci['energy']),om.size(dicci['danceability']),om.size(dicci['valence'])
 
 
-def tablageneros(nom,des1,des2):
+def tablageneros(nom):
 
     generos= mp.newMap()
     if nom == "Reggae":
@@ -320,7 +321,6 @@ def requerimiento1(dicci,nombre,num1,num2):
 def requerimiento2(dicci,d1,d2,e1,e2):
 
 
-
     d = om.values(dicci["danceability"],d1,d2)
     diccionario = mp.newMap()
 
@@ -330,7 +330,7 @@ def requerimiento2(dicci,d1,d2,e1,e2):
     while it.hasNext(iterador):
 
         actual = it.next(iterador)
-
+        
         ite = it.newIterator(actual)
 
 
@@ -364,7 +364,36 @@ def requerimiento2(dicci,d1,d2,e1,e2):
 
     spiderman=mp.valueSet(diccionario)
 
-    return alejita
+
+    jefa=lt.size(spiderman)
+
+    
+    besos=random.randint(1,jefa)
+    pecas=random.randint(1,jefa)
+    bruno=random.randint(1,jefa)
+    armando=random.randint(1,jefa)
+
+    jamaica=lt.getElement(spiderman,besos)
+    sos=lt.getElement(spiderman,pecas)
+    xavi=lt.getElement(spiderman,bruno)
+    armando=lt.getElement(spiderman,armando)
+
+
+    pelea=jamaica["first"]["info"]
+    sos=sos["first"]["info"]
+    xavi=xavi["first"]["info"]
+    armando=armando["first"]["info"]
+
+    pelele=("Track 1: "+str(pelea["track_id"])+" with energy of "+str(pelea["energy"])+"  and danceability of "+str(pelea["danceability"]))
+    messi=("Track 1: "+str(sos["track_id"])+" with energy of "+str(sos["energy"])+"  and danceability of "+str(sos["danceability"]))
+    xavi=("Track 1: "+str(xavi["track_id"])+" with energy of "+str(xavi["energy"])+"  and danceability of "+str(xavi["danceability"]))
+    armando=("Track 1: "+str(armando["track_id"])+" with energy of "+str(armando["energy"])+"  and danceability of "+str(armando["danceability"]))
+
+
+    pep=(messi,pelele,xavi,armando)
+ 
+    return alejita,pep
+
 
 
 def requerimiento3(dicci,i1,i2,t1,t2):
@@ -378,7 +407,7 @@ def requerimiento3(dicci,i1,i2,t1,t2):
     while it.hasNext(iterador):
 
         actual = it.next(iterador)
-
+        
         ite = it.newIterator(actual)
 
 
@@ -410,11 +439,44 @@ def requerimiento3(dicci,i1,i2,t1,t2):
 
     alejita = mp.size(diccionario)
 
-    return alejita
+    spiderman=mp.valueSet(diccionario)
+
+
+    jefa=lt.size(spiderman)
+
+    
+    besos=random.randint(1,jefa)
+    pecas=random.randint(1,jefa)
+    bruno=random.randint(1,jefa)
+    armando=random.randint(1,jefa)
+
+
+
+    jamaica=lt.getElement(spiderman,besos)
+    sos=lt.getElement(spiderman,pecas)
+    xavi=lt.getElement(spiderman,bruno)
+    armando=lt.getElement(spiderman,armando)
+
+
+    pelea=jamaica["first"]["info"]
+    sos=sos["first"]["info"]
+    xavi=xavi["first"]["info"]
+    armando=armando["first"]["info"]
+
+    pelele=("Track 1: "+str(pelea["track_id"])+" with instrumentalness of "+str(pelea["instrumentalness"])+"  and tempo of "+str(pelea["tempo"]))
+    messi=("Track 1: "+str(sos["track_id"])+" with instrumentalness of "+str(sos["instrumentalness"])+"  and tempo of "+str(sos["tempo"]))
+    xavi=("Track 1: "+str(xavi["track_id"])+" with instrumentalness of "+str(xavi["instrumentalness"])+"  and tempo of "+str(xavi["tempo"]))
+    armando=("Track 1: "+str(armando["track_id"])+" with instrumentalness of "+str(armando["instrumentalness"])+"  and tempo of "+str(armando["tempo"]))
+
+
+    pep=(messi,pelele,xavi,armando)
+
+    return alejita,pep
+
 
 def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     
-    gene1 = tablageneros(nom1,des1,des2)
+    gene1 = tablageneros(nom1)
     llave = mp.get(gene1,nom1)#Da la llave y el valor de la tabla de hash 
     valor = me.getValue(llave)# El valor de la llave del genero 
     rango1 = om.values(info["generos"],valor[0],valor[1])
@@ -422,7 +484,7 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     diccionario = mp.newMap()
     diccionarionuevo = mp.newMap()
     iterador = it.newIterator(rango1)
-    suma1 =0
+    suma1 = 0
     
     while it.hasNext(iterador):
 
@@ -460,7 +522,7 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     tamano1 = mp.size(diccionarionuevo)
     
-    gene2 = tablageneros(nom2,des1,des2)
+    gene2 = tablageneros(nom2)
     llave = mp.get(gene2,nom2)
     valor2 = me.getValue(llave)
     rango2 = om.values(info["generos"],valor2[0],valor2[1])
@@ -506,7 +568,7 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     tamano2 = mp.size(diccionarionuevo2)
 
 
-    gene3 = tablageneros(nom3,des1,des2)
+    gene3 = tablageneros(nom3)
     llave = mp.get(gene3,nom3)
     valor3 = me.getValue(llave)
     rango3 = om.values(info["generos"],valor3[0],valor3[1])
@@ -641,29 +703,76 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3
 
     
-def requerimiento5(diccio,rangoinf,rangomay):
-        
-
-        du = om.values(diccio["sentimiento"],rangoinf,rangomay)
-        iterador = it.newIterator(du)
-
-        
-        while it.hasNext(iterador):
-
-            actu = it.next(iterador)
-            
-            iterardentro = it.newIterator(actu)
-
-            while it.hasNext(iterardentro):
-
-                actual = it.next(iterardentro)
+def requerimiento5(info,diccio,rangoinf,rangomay):   
 
 
+    gene3 = tablageneros("Reggae")
+    llave = mp.get(gene3,"Reggae")
+    valor3 = me.getValue(llave)
+    rango1 = om.values(info["generos"],valor3[0],valor3[1])
 
-
-
+    diccionarioo = mp.newMap()
+    diccionarioReggae = mp.newMap()
+    iterador = it.newIterator(rango1)
 
     
+    while it.hasNext(iterador):
+
+        actu = it.next(iterador)
+
+        iterardentro = it.newIterator(actu)
+
+        while it.hasNext(iterardentro):
+
+            actual = it.next(iterardentro)
+            fecha = actual["created_at"]
+            filtro = fecha[11:19]
+            quita =filtro.replace(":","")
+            if mp.contains(diccionarioReggae,quita):
+
+                ola = mp.get(diccionarioReggae,quita)
+                listo = me.getValue(ola)
+
+                lt.addLast(listo,actual)
+            else:
+
+                listo = lt.newList()
+                mp.put(diccionarioReggae,quita,listo)
+                lt.addLast(listo,actual)    
+
+
+            dumar= om.values(diccio["fecha"],rangoinf,rangomay)
+
+            iterador = it.newIterator(dumar)
+
+            while it.hasNext(iterador):
+
+                act = it.next(iterador)
+                
+                iterardent = it.newIterator(act)
+
+                while it.hasNext(iterardent):
+
+                    actuales = it.next(iterardent)
+
+                    if actuales["created_at"] == actual["created_at"]:
+
+                        if mp.contains(diccionarioo,actuales):
+
+                            olagordo = mp.get(diccionarioo,actuales)
+                            listones = me.getValue(olagordo)
+
+                            lt.addLast(listones,actuales)
+                        else:
+
+                            listones = lt.newList()
+                            mp.put(diccionarioo,actuales,listones)
+                            lt.addLast(listones,actuales)
+
+
+    return diccionarioo
+
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

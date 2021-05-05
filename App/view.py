@@ -45,7 +45,7 @@ def printMenu():
     print("Bienvenido")
     print("Inicializar el diccionario")
     print("2- Cargar información en el catálogo")
-    print("3- Analisis de datos(Cantidad de registros de eventos, autores,pistas")
+    print("3- Analisis de datos(Cantidad de registros de eventos, autores,pistas) ")
     print("4- Requerimiento 1")
     print("5- Requerimiento 2")
     print("6- Requerimiento 3")
@@ -113,14 +113,21 @@ while True:
         e1=float(input("INGRESE E1: "))
         e2=float(input ("INGRESE E2: "))
         otu= controller.loadrequerimiento2(dicci,d1,d2,e1,e2)
-        
-        print("Tiempo [ms]: ", f"{otu[1]:.3f}", " || ",
-        "Memoria [kB]: ", f"{otu[2]:.3f}")
 
-        print(" El numero total de pistas es: ", otu[0])
+        print("Tiempo [ms]: ", f"{otu[2]:.3f}", " || ",
+        "Memoria [kB]: ", f"{otu[3]:.3f}")
+
+        print("Total unique tracks: "+str(otu[0]))
+
+        print("-------- Unique tracks id-------")
+
+        for i in otu[1]:
+
+            print(i)
 
     elif int(inputs[0]) == 6:
 
+        
         i1=float(input("INGRESE I1: "))
         i2=float(input("INGRESE I2: "))
         t1=float(input("INGRESE T1: "))
@@ -128,11 +135,16 @@ while True:
 
         panaca=controller.loadrequerimiento3(dicci,i1,i2,t1,t2) 
 
-        print("Tiempo [ms]: ", f"{panaca[1]:.3f}", " || ",
+        print("Tiempo [ms]: ", f"{panaca[2]:.3f}", " || ",
         "Memoria [kB]: ", f"{panaca[2]:.3f}")
 
-        print(panaca[0])
+        print("Total unique tracks: "+str(panaca[0]))
 
+        print("-------- Unique tracks id-------")
+
+        for m in panaca[1]:
+
+            print(m)
         
     elif int(inputs[0]) == 7:
 
@@ -218,7 +230,13 @@ while True:
 
     elif int(inputs[0]) == 8:
 
-        pass
+        rangoinf = input("Ingrese el rango inferior de horas: ")
+        rangomay = input("Ingrese el rango mayor de horas: ")
+
+        chupameestepenco = controller.loadrequerimiento5(info,diccio,rangoinf,rangomay)
+
+
+        print(chupameestepenco)
    
     else:
         sys.exit(0)

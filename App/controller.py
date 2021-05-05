@@ -169,7 +169,7 @@ def loadrequerimiento2(dicci,d1,d2,e1,e2):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
 
-    return lupita,delta_time,delta_memory
+    return lupita[0],lupita[1],delta_time,delta_memory
 
 def loadrequerimiento3(dicci,i1,i2,t1,t2):
 
@@ -190,7 +190,7 @@ def loadrequerimiento3(dicci,i1,i2,t1,t2):
 
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
-    return  pepeelgruillo,delta_time,delta_memory
+    return  pepeelgruillo[0],pepeelgruillo[1],delta_time,delta_memory
 
 def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
@@ -215,8 +215,12 @@ def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
 
 
-def loadrequerimiento5():
-    pass
+def loadrequerimiento5(info,diccio,rangoinf,rangomay):
+
+    ivandu = model.requerimiento5(info,diccio,rangoinf,rangomay)
+
+    return ivandu
+    
 
 
 
@@ -231,10 +235,6 @@ def loadSize(dicci):
     pepo=model.crimesSize(dicci)
 
     return pepo
-
-
-
-
 
 def getTime():
     """
@@ -265,6 +265,4 @@ def deltaMemory(start_memory, stop_memory):
     delta_memory = delta_memory/1024.0
     return delta_memory
 
-# Funciones de ordenamiento
 
-# Funciones de consulta sobre el catálogo
