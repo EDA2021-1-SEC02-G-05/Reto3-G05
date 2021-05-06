@@ -79,6 +79,7 @@ while True:
         controller.loadData(dicci,crimesfile) #arboles por caracteristicas de evento
         t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
         f = controller.loadData3(diccio,user_track) #arbol organizado por fecha
+
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
     
@@ -87,10 +88,11 @@ while True:
 
         o = controller.loadparte2(info)
 
-        print("El total de registros de eventos de escucha cargados son: ",o[0])
+
+        print("El total de registros de eventos de escucha cargados son: ",o[3])
         print("La altura del arbol es: ",o[1])
         print("El total de artistas es: ",o[2])
-        print("El total de pistas de audio son: ",o[3])
+        print("El total de pistas de audio son: ",o[0])
 
     elif int(inputs[0]) == 4:
 

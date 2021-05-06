@@ -97,7 +97,7 @@ def loadData3(diccio, crimesfile):
     Carga los datos de los archivos CSV en el modelo
     """
 
-    mapfile2 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
+    mapfile2 = cf.data_dir + "context_content_features-small.csv"
     input_file2= csv.DictReader(open(mapfile2, encoding="utf-8"),
                                 delimiter=",")
 

@@ -705,72 +705,79 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     
 def requerimiento5(info,diccio,rangoinf,rangomay):   
 
-
-    gene3 = tablageneros("Reggae")
-    llave = mp.get(gene3,"Reggae")
-    valor3 = me.getValue(llave)
-    rango1 = om.values(info["generos"],valor3[0],valor3[1])
-
-    diccionarioo = mp.newMap()
-    diccionarioReggae = mp.newMap()
-    iterador = it.newIterator(rango1)
-
     
-    while it.hasNext(iterador):
+    diccionarioo = om.newMap()
 
-        actu = it.next(iterador)
+    dumar= om.values(diccio["fecha"],rangoinf,rangomay)
 
-        iterardentro = it.newIterator(actu)
+    iteradorr = it.newIterator(dumar)
 
-        while it.hasNext(iterardentro):
+    while it.hasNext(iteradorr):
 
-            actual = it.next(iterardentro)
-            fecha = actual["created_at"]
-            filtro = fecha[11:19]
-            quita =filtro.replace(":","")
-            if mp.contains(diccionarioReggae,quita):
+        act = it.next(iteradorr)
+        
+        iterardent = it.newIterator(act)
 
-                ola = mp.get(diccionarioReggae,quita)
-                listo = me.getValue(ola)
+        while it.hasNext(iterardent):
 
-                lt.addLast(listo,actual)
+            actuales = it.next(iterardent)
+            fechas = actuales["created_at"]
+            filtro = fechas[11:16]
+            quitar =filtro.replace(":","")
+
+            if om.contains(diccionarioo,quitar):
+
+                olagordo = om.get(diccionarioo,quitar)
+                listones = me.getValue(olagordo)
+
+                lt.addLast(listones,actuales)
             else:
 
-                listo = lt.newList()
-                mp.put(diccionarioReggae,quita,listo)
-                lt.addLast(listo,actual)    
+                listones = lt.newList()
+                om.put(diccionarioo,quitar,listones)
+                lt.addLast(listones,actuales)
 
+    u = om.keySet(diccionarioo)
+    
+    gene = tablageneros("Reggae")
+    llave = mp.get(gene,"Reggae")
+    valor = me.getValue(llave)
+    rango = om.values(info["generos"],valor[0],valor[1])
 
-            dumar= om.values(diccio["fecha"],rangoinf,rangomay)
+    nuevo = om.newMap()
 
-            iterador = it.newIterator(dumar)
+    ite = it.newIterator(rango)
 
-            while it.hasNext(iterador):
+    while it.hasNext(ite):
 
-                act = it.next(iterador)
-                
-                iterardent = it.newIterator(act)
+        recurre = it.next(ite)
+        
+        ite = it.newIterator(recurre)
 
-                while it.hasNext(iterardent):
+        while it.hasNext(ite):
 
-                    actuales = it.next(iterardent)
+            actuales = it.next(ite)
+            fachas = actuales["created_at"]
+            filtros = fachas[11:16]
+            quitar =filtros.replace(":","")
 
-                    if actuales["created_at"] == actual["created_at"]:
+            if quitar == om.keySet(diccionarioo):
 
-                        if mp.contains(diccionarioo,actuales):
+                if om.contains(nuevo,actuales["tempo"]):
 
-                            olagordo = mp.get(diccionarioo,actuales)
-                            listones = me.getValue(olagordo)
+                    olagord = om.get(nuevo,actuales["tempo"])
+                    liston = me.getValue(olagord)
 
-                            lt.addLast(listones,actuales)
-                        else:
+                    lt.addLast(liston,actuales)
+                else:
 
-                            listones = lt.newList()
-                            mp.put(diccionarioo,actuales,listones)
-                            lt.addLast(listones,actuales)
+                    liston = lt.newList()
+                    om.put(nuevo,actuales["tempo"],liston)
+                    lt.addLast(listones,actuales)
 
+    f = om.size(nuevo)
 
-    return diccionarioo
+    return quitar
 
 
 
