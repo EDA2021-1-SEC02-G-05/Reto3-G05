@@ -83,7 +83,7 @@ def addFecha(diccio, song2):
     
     fecha = song2["created_at"]
     filtro = fecha[11:19]
-    quita =filtro.replace(":","")
+    quita =int(filtro.replace(":",""))
     if om.contains(diccio["fecha"],quita):
         jef=om.get(diccio["fecha"],quita)
         lis = me.getValue(jef)
@@ -91,9 +91,9 @@ def addFecha(diccio, song2):
 
     else:
 
-        lisa=lt.newList()
-        om.put(diccio["fecha"],quita,lisa)
-        lt.addLast(lisa,song2)
+        lis=lt.newList()
+        om.put(diccio["fecha"],quita,lis)
+        lt.addLast(lis,song2)
 
     return diccio
 
@@ -677,8 +677,6 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     artistas1= lt.subList(primero,0,12)
 
-
-
     iterador = it.newIterator(llave2)
     segundo = lt.newList()
     while it.hasNext(iterador):
@@ -708,13 +706,15 @@ def requerimiento5(info,diccio,rangoinf,rangomay):
     
     diccionarioo = om.newMap()
 
-    dumar= om.values(diccio["fecha"],rangoinf,rangomay)
+    dumar= om.values(diccio["fecha"],int(rangoinf),int(rangomay))
 
     iteradorr = it.newIterator(dumar)
-
+    x = 0
     while it.hasNext(iteradorr):
 
         act = it.next(iteradorr)
+
+        x += lt.size(act)
         
         iterardent = it.newIterator(act)
 
@@ -722,7 +722,7 @@ def requerimiento5(info,diccio,rangoinf,rangomay):
 
             actuales = it.next(iterardent)
             fechas = actuales["created_at"]
-            filtro = fechas[11:16]
+            filtro = fechas[11:19]
             quitar =filtro.replace(":","")
 
             if om.contains(diccionarioo,quitar):
@@ -737,17 +737,17 @@ def requerimiento5(info,diccio,rangoinf,rangomay):
                 om.put(diccionarioo,quitar,listones)
                 lt.addLast(listones,actuales)
 
-    u = om.keySet(diccionarioo)
     
     gene = tablageneros("Reggae")
     llave = mp.get(gene,"Reggae")
     valor = me.getValue(llave)
-    rango = om.values(info["generos"],valor[0],valor[1])
+    
 
-    nuevo = om.newMap()
+    nuevo = mp.newMap()
 
-    ite = it.newIterator(rango)
+    valoress = om.values(diccionarioo,rangoinf,rangomay)
 
+    ite = it.newIterator(valoress)
     while it.hasNext(ite):
 
         recurre = it.next(ite)
@@ -757,27 +757,25 @@ def requerimiento5(info,diccio,rangoinf,rangomay):
         while it.hasNext(ite):
 
             actuales = it.next(ite)
-            fachas = actuales["created_at"]
-            filtros = fachas[11:16]
-            quitar =filtros.replace(":","")
+            fachas = actuales["tempo"]
 
-            if quitar == om.keySet(diccionarioo):
 
-                if om.contains(nuevo,actuales["tempo"]):
+            if float(fachas)>=valor[0] and float(fachas) <= valor[1]:
 
-                    olagord = om.get(nuevo,actuales["tempo"])
+                if mp.contains(nuevo,fachas):
+
+                    olagord = mp.get(nuevo,fachas)
                     liston = me.getValue(olagord)
 
                     lt.addLast(liston,actuales)
                 else:
 
                     liston = lt.newList()
-                    om.put(nuevo,actuales["tempo"],liston)
+                    mp.put(nuevo,fachas,liston)
                     lt.addLast(listones,actuales)
 
-    f = om.size(nuevo)
-
-    return quitar
+    w=mp.size(nuevo)
+    return x
 
 
 

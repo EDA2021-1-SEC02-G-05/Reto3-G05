@@ -110,22 +110,22 @@ def loadData3(diccio, crimesfile):
   
     return diccio
 
-def loadData4(dicci, crimesfile):
+def loadData4(diccio, crimesfile):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    mapfile3 = cf.data_dir + "sentiment_values.csv"
+    mapfile3 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
     input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
                                 delimiter=",")
 
 
     
-    for song3 in input_file3:
+    for song2 in input_file3:
 
-        model.addCancion(dicci,song3)
+        model.addFecha(diccio,song2)
 
   
-    return dicci
+    return diccio
 
 def loadparte2(info):
 

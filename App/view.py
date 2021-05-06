@@ -84,6 +84,7 @@ while True:
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
     
     
+    
     elif int(inputs[0]) == 3:
 
         o = controller.loadparte2(info)
