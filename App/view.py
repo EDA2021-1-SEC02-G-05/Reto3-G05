@@ -248,6 +248,10 @@ while True:
 
         res = controller.loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay)
 
+        print("Hay un total de:",res[9], "de reproducciones entre ",rangoinf, " y ",rangomay)
+
+        print("-"*68)
+
         print("TOP 1: Metal with ",res[0]," reps")
         print("TOP 2: Rock with ",res[1]," reps")
         print("TOP 3: Pop with ",res[2]," reps")
@@ -255,10 +259,18 @@ while True:
         print("TOP 5: Hip - Hop with ",res[4]," reps")
         print("TOP 6: Down-tempo with ",res[5]," reps")
         print("TOP 7: Reggae with ",res[6]," reps")
-        print("TOP 8: Jazz with ",res[7]," reps")
+        print("TOP 8: Jazz and funk with ",res[7]," reps")
         print("TOP 9: R&b with ",res[8]," reps")
-        
 
+        print("El genero Metal es TOP 1 con: ",res[0])
+
+        print("-"*92)
+
+        print("-"*30,"Metal ANALISIS DE SENTIMIENTOS","-"*30)
+
+        print("Los primeros tracks son: ")
+
+    
     else:
         sys.exit(0)
 sys.exit(0)

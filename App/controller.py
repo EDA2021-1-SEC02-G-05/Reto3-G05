@@ -239,15 +239,27 @@ def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
 def loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay):
      
-    rangoinf = datetime.datetime.strptime(rangoinf,"%H:%M")
-    rangomay = datetime.datetime.strptime(rangomay,"%H:%M")
+    rangoinf = datetime.datetime.strptime(rangoinf,"%H:%M:%S")
+    rangomay = datetime.datetime.strptime(rangomay,"%H:%M:%S")
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
 
     ivandu = model.requerimiento5(info,diccio,diccion,rangoinf,rangomay)
 
-    return ivandu[0],ivandu[1],ivandu[2],ivandu[3],ivandu[4],ivandu[5],ivandu[6],ivandu[7],ivandu[8]
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+
+    return ivandu[0],ivandu[1],ivandu[2],ivandu[3],ivandu[4],ivandu[5],ivandu[6],ivandu[7],ivandu[8],ivandu[9]
     
-
-
 
 def loadHeight(dicci):
 
