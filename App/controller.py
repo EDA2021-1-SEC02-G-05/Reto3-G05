@@ -28,6 +28,7 @@ import config as cf
 import model
 import csv
 import time
+import datetime
 import tracemalloc
 
 
@@ -58,6 +59,12 @@ def init3():
     info2 = model.newOrderMapSentimiento()
 
     return info2
+
+def init4():
+
+    info3 = model.orderMapSentimiento()
+
+    return info3
 
 
 def loadData(dicci, crimesfile):
@@ -118,7 +125,6 @@ def loadData4(diccio, crimesfile):
     input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
                                 delimiter=",")
 
-
     
     for song2 in input_file3:
 
@@ -126,6 +132,22 @@ def loadData4(diccio, crimesfile):
 
   
     return diccio
+
+def loadData5(diccion, crimesfile):
+    """
+    Carga los datos de los archivos CSV en el modelo
+    """
+    mapfile4 = cf.data_dir + "sentiment_values.csv"
+    input_file4= csv.DictReader(open(mapfile4, encoding="utf-8"),
+                                delimiter=",")
+
+    
+    for song3 in input_file4:
+
+        model.addSentimiento(diccion,song3)
+
+  
+    return diccion
 
 def loadparte2(info):
 
@@ -215,11 +237,14 @@ def loadrequerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
 
 
-def loadrequerimiento5(info,diccio,rangoinf,rangomay):
+def loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay):
+     
+    rangoinf = datetime.datetime.strptime(rangoinf,"%H:%M")
+    rangomay = datetime.datetime.strptime(rangomay,"%H:%M")
 
-    ivandu = model.requerimiento5(info,diccio,rangoinf,rangomay)
+    ivandu = model.requerimiento5(info,diccio,diccion,rangoinf,rangomay)
 
-    return ivandu
+    return ivandu[0],ivandu[1],ivandu[2],ivandu[3],ivandu[4],ivandu[5],ivandu[6],ivandu[7],ivandu[8]
     
 
 

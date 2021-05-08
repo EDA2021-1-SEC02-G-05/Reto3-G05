@@ -34,6 +34,7 @@ from DISClib.ADT import map as m
 from DISClib.DataStructures import listiterator as it
 import datetime
 import random
+import datetime
 assert config
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -75,15 +76,30 @@ def newOrderMapSentimiento():
 
     diccio={"fecha":None}
 
-    diccio["fecha"] =  om.newMap(omaptype='BRT')
+    diccio["fecha"] =  om.newMap(omaptype='BRT',comparefunction=compareHour)
 
     return diccio
 
+def orderMapSentimiento():
+
+    diccion={"sentimiento":None}
+
+    diccion["sentimiento"] =  lt.newList()
+
+    return diccion
+
+def addSentimiento(diccion, song3):
+    
+
+    lt.addLast(diccion["sentimiento"],song3)
+
+    return diccion
+
 def addFecha(diccio, song2):
     
-    fecha = song2["created_at"]
-    filtro = fecha[11:19]
-    quita =int(filtro.replace(":",""))
+    fecha = datetime.datetime.strptime(song2["created_at"],"%Y-%m-%d %H:%M:%S")
+    quita = fecha.time()
+    
     if om.contains(diccio["fecha"],quita):
         jef=om.get(diccio["fecha"],quita)
         lis = me.getValue(jef)
@@ -700,82 +716,162 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3
 
-    
-def requerimiento5(info,diccio,rangoinf,rangomay):   
+
+def requerimiento5(info,diccio,diccion,rangoinf,rangomay):  
 
     
-    diccionarioo = om.newMap()
-
-    dumar= om.values(diccio["fecha"],int(rangoinf),int(rangomay))
-
+    diccionarioo = mp.newMap()
+    e = mp.newMap()
+    dumar= om.values(diccio["fecha"],rangoinf,rangomay)
     iteradorr = it.newIterator(dumar)
-    x = 0
     while it.hasNext(iteradorr):
-
         act = it.next(iteradorr)
-
-        x += lt.size(act)
-        
         iterardent = it.newIterator(act)
-
         while it.hasNext(iterardent):
-
             actuales = it.next(iterardent)
-            fechas = actuales["created_at"]
-            filtro = fechas[11:19]
-            quitar =filtro.replace(":","")
+            id = actuales["created_at"]
+            if not mp.contains(diccionarioo,id):
+                mp.put(diccionarioo,id,actuales)
+            
+                
+    gene = tablageneros("Metal")
+    llave = mp.get(gene,"Metal")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma += 1
 
-            if om.contains(diccionarioo,quitar):
-
-                olagordo = om.get(diccionarioo,quitar)
-                listones = me.getValue(olagordo)
-
-                lt.addLast(listones,actuales)
-            else:
-
-                listones = lt.newList()
-                om.put(diccionarioo,quitar,listones)
-                lt.addLast(listones,actuales)
-
+    gene = tablageneros("Rock")
+    llave = mp.get(gene,"Rock")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma2 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma2 += 1
     
+    gene = tablageneros("Pop")
+    llave = mp.get(gene,"Pop")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma3 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma3 += 1
+    
+    gene = tablageneros("Chill-out")
+    llave = mp.get(gene,"Chill-out")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma4 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma4 += 1
+
+    gene = tablageneros("Hip Hop")
+    llave = mp.get(gene,"Hip Hop")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma5 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma5 += 1
+
+    gene = tablageneros("Down-tempo")
+    llave = mp.get(gene,"Down-tempo")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma6 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma6 += 1
+
     gene = tablageneros("Reggae")
     llave = mp.get(gene,"Reggae")
     valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma7 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma7 += 1
     
+    gene = tablageneros("Jazz and Funk")
+    llave = mp.get(gene,"Jazz and Funk")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma8 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma8 += 1
 
-    nuevo = mp.newMap()
+    gene = tablageneros("R&B")
+    llave = mp.get(gene,"R&B")
+    valor = me.getValue(llave)
+    rango3 = om.values(info["generos"],valor[0],valor[1])
+    iterador = it.newIterator(rango3)
+    suma9 = 0
+    g = mp.newMap()
+    while it.hasNext(iterador):
+        actu = it.next(iterador)
+        iterardentro = it.newIterator(actu)
+        while it.hasNext(iterardentro):
+            actual = it.next(iterardentro)
+            if mp.contains(diccionarioo,actual["created_at"]):
+                suma9 += 1
 
-    valoress = om.values(diccionarioo,rangoinf,rangomay)
-
-    ite = it.newIterator(valoress)
-    while it.hasNext(ite):
-
-        recurre = it.next(ite)
-        
-        ite = it.newIterator(recurre)
-
-        while it.hasNext(ite):
-
-            actuales = it.next(ite)
-            fachas = actuales["tempo"]
+    return suma,suma2,suma3,suma4,suma5,suma6,suma7,suma8,suma9
 
 
-            if float(fachas)>=valor[0] and float(fachas) <= valor[1]:
-
-                if mp.contains(nuevo,fachas):
-
-                    olagord = mp.get(nuevo,fachas)
-                    liston = me.getValue(olagord)
-
-                    lt.addLast(liston,actuales)
-                else:
-
-                    liston = lt.newList()
-                    mp.put(nuevo,fachas,liston)
-                    lt.addLast(listones,actuales)
-
-    w=mp.size(nuevo)
-    return x
 
 
 
@@ -828,4 +924,20 @@ def compareTempo(tempo1, tempo2):
         return 1
     else:
         return -1
-# Funciones de ordenamiento
+
+def compareHour (hour1,hour2):
+    if (hour1.hour == hour2.hour) and (hour1.minute == hour2.minute):
+        return 0
+    elif (hour1.hour > hour2.hour):
+        return 1 
+    else:
+        return -1
+
+def compareAvg(avg1, avg2):
+ 
+    if (int(avg1) == int(avg2)):
+        return 0
+    elif (int(avg1) > int(avg2)):
+        return 1
+    else:
+        return -1

@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+from DISClib.ADT import orderedmap as om
 
 import sys 
 
@@ -55,6 +56,7 @@ def printMenu():
 
 crimesfile="context_content_features-small.csv"
 user_track="user_track_hashtag_timestamp-small.csv"
+sentiment = "sentiment_values.csv"
 
 
 # arreglar esto 
@@ -71,18 +73,26 @@ while True:
         dicci=controller.init()
         info = controller.init2()
         diccio = controller.init3()
+        diccion = controller.init4()
         print(dicci)
         print(info)
         print(diccio)
+        print(diccion)
 
     elif int(inputs[0]) == 2:
         controller.loadData(dicci,crimesfile) #arboles por caracteristicas de evento
         t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
-        f = controller.loadData3(diccio,user_track) #arbol organizado por fecha
+        f = controller.loadData3(diccio,crimesfile) #arbol organizado por fecha
+        d = controller.loadData4(diccio,user_track) # Arbol por fecha con otro archivo
+        y = controller.loadData5(diccion,sentiment) #arbol por vader prom
 
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
         print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
-    
+
+
+
+
+        
     
     
     elif int(inputs[0]) == 3:
@@ -236,11 +246,19 @@ while True:
         rangoinf = input("Ingrese el rango inferior de horas: ")
         rangomay = input("Ingrese el rango mayor de horas: ")
 
-        chupameestepenco = controller.loadrequerimiento5(info,diccio,rangoinf,rangomay)
+        res = controller.loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay)
 
+        print("TOP 1: Metal with ",res[0]," reps")
+        print("TOP 2: Rock with ",res[1]," reps")
+        print("TOP 3: Pop with ",res[2]," reps")
+        print("TOP 4: Chill-out with ",res[3]," reps")
+        print("TOP 5: Hip - Hop with ",res[4]," reps")
+        print("TOP 6: Down-tempo with ",res[5]," reps")
+        print("TOP 7: Reggae with ",res[6]," reps")
+        print("TOP 8: Jazz with ",res[7]," reps")
+        print("TOP 9: R&b with ",res[8]," reps")
+        
 
-        print(chupameestepenco)
-   
     else:
         sys.exit(0)
 sys.exit(0)
