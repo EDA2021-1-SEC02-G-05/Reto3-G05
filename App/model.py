@@ -26,14 +26,14 @@
 
 
 import config
+import random
+import operator
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import map as m
 from DISClib.DataStructures import listiterator as it
-import datetime
-import random
 import datetime
 assert config
 """
@@ -60,6 +60,13 @@ def newMapOrdenado():
     dicci['danceability'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
 
     dicci['valence'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+    
+    dicci['legend'] = om.newMap(omaptype='BRT',comparefunction=compareDates)
+
+    dicci["adidas"]={}
+
+    dicci["pedro"]={}
+
 
     return dicci 
 
@@ -716,148 +723,391 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
 
     return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3
 
+def requerimientoo(dicci,song):
 
-def requerimiento5(info,diccio,diccion,rangoinf,rangomay):  
+    pepe=song["created_at"]
+    pepe=pepe[11:16]
+    pepe=pepe.replace(":", "")
+
+
+    if om.contains(dicci["legend"],int(pepe)):
+        jef=om.get(dicci["legend"],int(pepe))
+        lis = me.getValue(jef)
+        lt.addLast(lis,song)
+    else:
+
+        lisa=lt.newList()
+        om.put(dicci["legend"],int(pepe),lisa)
+        lt.addLast(lisa,song)
+
+    return dicci["legend"]   
+
+
+
+def requerimiento5(dicci,hora1,hora2):
+
+    d = om.values(dicci["legend"],hora1,hora2)
+
+    diccionario = mp.newMap()
+
+
+    iterador = it.newIterator(d)
+
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+        
+        ite = it.newIterator(actual)
+
+
+        while it.hasNext(ite):
+
+
+            actual = it.next(ite)
+
+
+
+            if float(actual["tempo"]) >= 60.000 and float(actual["tempo"]) <= 90.000:
+
+
+
+                if mp.contains(diccionario,"Reggae"):
+
+                    ola = mp.get(diccionario,"Reggae")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,"Reggae",listo)
+                    lt.addLast(listo,actual)
+
+            if float(actual["tempo"]) >= 70.000 and float(actual["tempo"]) <= 100.000:
+
+
+
+                if mp.contains(diccionario,"Down-tempo"):
+
+                    ola = mp.get(diccionario,"Down-tempo")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,"Down-tempo",listo)
+                    lt.addLast(listo,actual)
+
+
+            if float(actual["tempo"]) >= 90.000 and float(actual["tempo"]) <= 120.000:
+
+                if mp.contains(diccionario,"Chill-out"):
+
+                    ola = mp.get(diccionario,"Chill-out")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,"Chill-out",listo)
+                    lt.addLast(listo,actual)
+
+
+
+            if float(actual["tempo"]) >= 85.000 and float(actual["tempo"]) <= 115.000:
+
+                if mp.contains(diccionario,"Hip-hop"):
+
+                    ola = mp.get(diccionario,"Hip-hop")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+                    listo = lt.newList()
+                    mp.put(diccionario,"Hip-hop",listo)
+                    lt.addLast(listo,actual)
+
+
+
+            if float(actual["tempo"]) >= 120.000 and float(actual["tempo"]) <= 125.000:
+
+                if mp.contains(diccionario,"Jazz and Funk"):
+
+                    ola = mp.get(diccionario,"Jazz and Funk")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,"Jazz and Funk",listo)
+                    lt.addLast(listo,actual)
+
+
+        
+            if float(actual["tempo"]) >= 100.000 and float(actual["tempo"]) <= 130.000:
+
+
+                if mp.contains(diccionario,"Pop"):
+
+                    ola = mp.get(diccionario,"Pop")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+
+
+                    listo = lt.newList()
+                    mp.put(diccionario,"Pop",listo)
+                    lt.addLast(listo,actual)
+
+            if float(actual["tempo"]) >= 60.000 and float(actual["tempo"]) <= 80.000:
+
+
+                if mp.contains(diccionario,"R&B"):
+                    ola = mp.get(diccionario,"R&B")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+                    listo = lt.newList()
+                    mp.put(diccionario,"R&B",listo)
+                    lt.addLast(listo,actual)
+
+
+            if float(actual["tempo"]) >= 110.000 and float(actual["tempo"]) <= 140.000:
+
+
+                if mp.contains(diccionario,"Rock"):
+                    ola = mp.get(diccionario,"Rock")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+                    listo = lt.newList()
+                    mp.put(diccionario,"Rock",listo)
+                    lt.addLast(listo,actual)
+
+
+            if float(actual["tempo"]) >= 100.000 and float(actual["tempo"]) <= 160.000:
+
+
+                if mp.contains(diccionario,"Metal"):
+                    ola = mp.get(diccionario,"Metal")
+                    listo = me.getValue(ola)
+
+                    lt.addLast(listo,actual)
+
+                else:
+                    listo = lt.newList()
+                    mp.put(diccionario,"Metal",listo)
+                    lt.addLast(listo,actual)
+
+        
+    lili=[]
+    jp=mp.newMap()
+    #numero de reproduccioness
+    numerorep=0
+    dicci["ultimo"]=mp.newMap()
+
+    percho= mp.keySet(diccionario)
+
+    iterador = it.newIterator(percho)
+
+    while it.hasNext(iterador):
+
+        actual = it.next(iterador)
+
+        lola = mp.get(diccionario,actual)
+        listo = me.getValue(lola)
+        pedri=lt.size(listo)
+        numerorep+=pedri
+
+        mp.put(jp,pedri,actual)
+
+
+        lili.append(pedri)
+
+    lili.sort(reverse=True)
 
     
-    diccionarioo = mp.newMap()
-    dumar= om.values(diccio["fecha"],rangoinf,rangomay)
-    iteradorr = it.newIterator(dumar)
-    while it.hasNext(iteradorr):
-        act = it.next(iteradorr)
-        iterardent = it.newIterator(act)
-        while it.hasNext(iterardent):
-            actuales = it.next(iterardent)
-            id = actuales["created_at"]
-            if not mp.contains(diccionarioo,id):
-                mp.put(diccionarioo,id,actuales)
-                       
-    gene = tablageneros("Metal")
-    llave = mp.get(gene,"Metal")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma += 1
-    gene = tablageneros("Rock")
-    llave = mp.get(gene,"Rock")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma2 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma2 += 1
-    
-    gene = tablageneros("Pop")
-    llave = mp.get(gene,"Pop")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma3 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma3 += 1
-    
-    gene = tablageneros("Chill-out")
-    llave = mp.get(gene,"Chill-out")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma4 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma4 += 1
 
-    gene = tablageneros("Hip Hop")
-    llave = mp.get(gene,"Hip Hop")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma5 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma5 += 1
-    gene = tablageneros("Down-tempo")
-    llave = mp.get(gene,"Down-tempo")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma6 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma6 += 1
-    gene = tablageneros("Reggae")
-    llave = mp.get(gene,"Reggae")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma7 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma7 += 1
-    gene = tablageneros("Jazz and Funk")
-    llave = mp.get(gene,"Jazz and Funk")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma8 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma8 += 1
-    gene = tablageneros("R&B")
-    llave = mp.get(gene,"R&B")
-    valor = me.getValue(llave)
-    rango3 = om.values(info["generos"],valor[0],valor[1])
-    iterador = it.newIterator(rango3)
-    suma9 = 0
-    while it.hasNext(iterador):
-        actu = it.next(iterador)
-        iterardentro = it.newIterator(actu)
-        while it.hasNext(iterardentro):
-            actual = it.next(iterardentro)
-            if mp.contains(diccionarioo,actual["created_at"]):
-                suma9 += 1
+    patricio = mp.get(jp,lili[0])
+    bob = me.getValue(patricio)
 
-    total = suma+suma2+suma3+suma4+suma5+suma6+suma7+suma8+suma9
+    ted = mp.get(diccionario,bob)
+    amos = me.getValue(ted)
+
+    iteradooo = it.newIterator(amos)
+
+    while it.hasNext(iteradooo):
+
+
+        act = it.next(iteradooo)
+
+
+        if mp.contains(dicci["ultimo"],act["track_id"] ):
+
+            ola = mp.get(dicci["ultimo"],act["track_id"])
+            listu = me.getValue(ola)
+
+            lt.addLast(listu,act)
+
+        else:
+            listu = lt.newList()
+            mp.put(dicci["ultimo"],act["track_id"],listu)
+            lt.addLast(listu,act)
+
+
+    baca1 = mp.get(jp,lili[0])
+    bacas1 = len(me.getValue(patricio))
+
+    baca2 = mp.get(jp,lili[1])
+    bacas2 = len(me.getValue(patricio))
+
+    baca3 = mp.get(jp,lili[2])
+    bacas3 = len(me.getValue(patricio))
+
+    baca4 = mp.get(jp,lili[3])
+    bacas4 = len(me.getValue(patricio))
+
+    baca5 = mp.get(jp,lili[4])
+    bacas5 = len(me.getValue(patricio))
+
+    baca6 = mp.get(jp,lili[5])
+    bacas6 = len(me.getValue(patricio))
+
+    baca7 = mp.get(jp,lili[6])
+    bacas7 = len(me.getValue(patricio))
+
+    baca8 = mp.get(jp,lili[7])
+    bacas8 = len(me.getValue(patricio))
+
+    baca9 = mp.get(jp,lili[8])
+    bacas9 = len(me.getValue(patricio))
+
+    lola=[baca1,bacas1,baca2,bacas2,baca3,bacas3,baca4,bacas4,baca5,bacas5,baca6,bacas6,baca7,bacas7,baca8,bacas8,baca9,bacas9]
 
 
     
-    return suma,suma2,suma3,suma4,suma5,suma6,suma7,suma8,suma9,total
+
+       
+    return numerorep,lola
+
+
+def requi(dicci,jit):
+
+    if mp.contains(dicci["ultimo"],jit["track_id"] ):
+
+        ola = mp.get(dicci["ultimo"],jit["track_id"])
+        listu = me.getValue(ola)
+
+        iteru = it.newIterator(listu)
+
+        while it.hasNext(iteru):
+
+            act = it.next(iteru)
+
+            if act["created_at"]== jit["created_at"]and  act["user_id"]== jit["user_id"]: 
+
+
+                act["hashtag"]=jit["hashtag"]
+
+
+    return dicci
+
+def requefinal(dicci):
+
+    rcn=mp.keySet(dicci["ultimo"])
+
+    iteradooo = it.newIterator(rcn)
+
+    while it.hasNext(iteradooo):
+
+
+        act = it.next(iteradooo)
+
+
+        ola = mp.get(dicci["ultimo"],act)
+        listu = me.getValue(ola)
+
+        iterar = it.newIterator(listu)
+
+        while it.hasNext(iterar):
+
+
+            abc = it.next(iterar)
+
+            if act in  dicci["adidas"]:
+
+                dicci["adidas"][act].append(abc["hashtag"])
+
+            else:
+                dicci["adidas"][act]=[abc["hashtag"]]
+
+    return dicci
+
+
+def rating(dicci,jtp):
+
+    for i in dicci["adidas"]:
+
+        if jtp["hashtag"]in dicci["adidas"][i]:
+
+            if jtp["vader_avg"] != "":
+
+
+                dicci["pedro"][str(i)]=[len(dicci["adidas"][i]),str(jtp["vader_avg"])]
+
+                
+
+    return dicci
+
+
+def lastdance(dicci):
+    lula=[]
+
+    maluma= sorted(dicci["pedro"].items(), key=operator.itemgetter(1), reverse=True)
+
+    pacho=maluma[:10]
+
+    for m in pacho:
+
+        lula.append(( " track "+str(m[0])+" with " +str(m[1][0])+" hashtag  and vader = "+str(m[1][1])))
+
+
+    return lula
+
+
+
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
 
 
