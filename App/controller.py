@@ -78,6 +78,8 @@ def loadData(dicci, crimesfile):
     for song in input_file:
 
         model.addsong(dicci,song)
+        model.requerimientoo(dicci,song)
+
 
   
     return dicci
@@ -129,6 +131,9 @@ def loadData4(diccio, crimesfile):
     for song2 in input_file3:
 
         model.addFecha(diccio,song2)
+        model.requi(dicci,jit)
+
+      
 
   
     return diccio
