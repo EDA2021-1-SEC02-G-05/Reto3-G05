@@ -1,4 +1,4 @@
-﻿"""
+"""
  * Copyright 2020, Departamento de sistemas y Computación, Universidad
  * de Los Andes
  *
@@ -74,27 +74,19 @@ while True:
         info = controller.init2()
         diccio = controller.init3()
         diccion = controller.init4()
-        print(dicci)
-        print(info)
-        print(diccio)
-        print(diccion)
-
+        d = controller.init5()
+   
     elif int(inputs[0]) == 2:
         controller.loadData(dicci,crimesfile) #arboles por caracteristicas de evento
         t = controller.loadData2(info,crimesfile) # arbol organizado por tempo
         f = controller.loadData3(diccio,crimesfile) #arbol organizado por fecha
-        d = controller.loadData4(diccio,user_track) # Arbol por fecha con otro archivo
+        d = controller.loadData4(d,user_track)
         y = controller.loadData5(diccion,sentiment) #arbol por vader prom
 
         print('Crimenes cargados: ' + str(controller.loadHeight(dicci)))
-        print('Crimenes cargados: ' + str(controller.loadSize(dicci)))
-
-
-
+        print('Crimenes cargados: ' + str(controller.loadSize(dicci))) 
 
         
-    
-    
     elif int(inputs[0]) == 3:
 
         o = controller.loadparte2(info)
@@ -149,7 +141,7 @@ while True:
         panaca=controller.loadrequerimiento3(dicci,i1,i2,t1,t2) 
 
         print("Tiempo [ms]: ", f"{panaca[2]:.3f}", " || ",
-        "Memoria [kB]: ", f"{panaca[2]:.3f}")
+        "Memoria [kB]: ", f"{panaca[3]:.3f}")
 
         print("Total unique tracks: "+str(panaca[0]))
 
@@ -248,6 +240,11 @@ while True:
 
         res = controller.loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay)
 
+        print("Tiempo [ms]: ", f"{res[11]:.3f}", " || ",
+        "Memoria [kB]: ", f"{res[12]:.3f}")
+
+
+
         print("Hay un total de:",res[9], "de reproducciones entre ",rangoinf, " y ",rangomay)
 
         print("-"*68)
@@ -260,15 +257,15 @@ while True:
         print("TOP 6: Down-tempo with ",res[5]," reps")
         print("TOP 7: Reggae with ",res[6]," reps")
         print("TOP 8: Jazz and funk with ",res[7]," reps")
-        print("TOP 9: R&b with ",res[8]," reps")
-
-        print("El genero Metal es TOP 1 con: ",res[0])
+        print("TOP 9: R&B with ",res[8]," reps")
 
         print("-"*92)
 
         print("-"*30,"Metal ANALISIS DE SENTIMIENTOS","-"*30)
 
         print("Los primeros tracks son: ")
+
+
 
     
     else:
