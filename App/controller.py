@@ -1,4 +1,4 @@
-﻿"""
+"""
  * Copyright 2020, Departamento de sistemas y Computación,
  * Universidad de Los Andes
  *
@@ -66,6 +66,11 @@ def init4():
 
     return info3
 
+def init5():
+
+    info4 = model.combi()
+
+    return info4
 
 def loadData(dicci, crimesfile):
     """
@@ -78,8 +83,6 @@ def loadData(dicci, crimesfile):
     for song in input_file:
 
         model.addsong(dicci,song)
-        model.requerimientoo(dicci,song)
-
 
   
     return dicci
@@ -119,24 +122,23 @@ def loadData3(diccio, crimesfile):
   
     return diccio
 
-def loadData4(diccio, crimesfile):
+def loadData4(d,user_track):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    mapfile3 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
-    input_file3= csv.DictReader(open(mapfile3, encoding="utf-8"),
+
+    mapfile2 = cf.data_dir + "user_track_hashtag_timestamp-small.csv"
+    input_file2= csv.DictReader(open(mapfile2, encoding="utf-8"),
                                 delimiter=",")
 
+
     
-    for song2 in input_file3:
+    for song4 in input_file2:
 
-        model.addFecha(diccio,song2)
-        model.requi(dicci,jit)
-
-      
+        model.combinacion(d,song4)
 
   
-    return diccio
+    return d
 
 def loadData5(diccion, crimesfile):
     """
@@ -263,7 +265,7 @@ def loadrequerimiento5(info,diccio,diccion,rangoinf,rangomay):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
 
-    return ivandu[0],ivandu[1],ivandu[2],ivandu[3],ivandu[4],ivandu[5],ivandu[6],ivandu[7],ivandu[8],ivandu[9]
+    return ivandu[0],ivandu[1],ivandu[2],ivandu[3],ivandu[4],ivandu[5],ivandu[6],ivandu[7],ivandu[8],ivandu[9],ivandu[10],delta_time,delta_memory
     
 
 def loadHeight(dicci):
