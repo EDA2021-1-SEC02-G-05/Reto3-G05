@@ -63,6 +63,11 @@ def newMapOrdenado():
 
     return dicci 
 
+def combi():
+
+    d = om.newMap(omaptype='BRT',comparefunction=compareTempo)
+
+    return d
 
 def newOrderMap():
 
@@ -84,14 +89,14 @@ def orderMapSentimiento():
 
     diccion={"sentimiento":None}
 
-    diccion["sentimiento"] =  lt.newList()
+    diccion["sentimiento"] =  mp.newMap()
 
     return diccion
 
 def addSentimiento(diccion, song3):
     
 
-    lt.addLast(diccion["sentimiento"],song3)
+    mp.put(diccion["sentimiento"],song3["hashtag"],song3)
 
     return diccion
 
@@ -112,6 +117,18 @@ def addFecha(diccio, song2):
         lt.addLast(lis,song2)
 
     return diccio
+
+def combinacion(d,song4):
+
+    if om.contains(d,song4["track_id"]):
+        jef=om.get(d,song4["track_id"])
+        lis = me.getValue(jef)
+        lt.addLast(lis,song4)
+    else:
+        lis=lt.newList()
+        om.put(d,song4["track_id"],lis)
+        lt.addLast(lis,song4)
+    return d
 
 
 def addCancion(info, song):
@@ -717,9 +734,15 @@ def requerimiento4(info,nom1,nom2,nom3,nom4,des1,des2):
     return suma1,suma2,suma3,total,suma4,tamano1,tamano2,tamano3,tamano4,artistas1,artistas2,artistas3
 
 
-def requerimiento5(info,diccio,diccion,rangoinf,rangomay):  
+def requerimiento5(info,diccio,diccion,rangoinf,rangomay):
+    vaya = lt.newList()
+    senti = mp.valueSet(diccion["sentimiento"])
+    primero = it.newIterator(senti)
+    while it.hasNext(primero):
+        pasando = it.next(primero)
 
-    
+        lt.addLast(vaya,pasando)
+
     diccionarioo = mp.newMap()
     dumar= om.values(diccio["fecha"],rangoinf,rangomay)
     iteradorr = it.newIterator(dumar)
@@ -731,13 +754,16 @@ def requerimiento5(info,diccio,diccion,rangoinf,rangomay):
             id = actuales["created_at"]
             if not mp.contains(diccionarioo,id):
                 mp.put(diccionarioo,id,actuales)
-                       
+    
+                             
     gene = tablageneros("Metal")
     llave = mp.get(gene,"Metal")
     valor = me.getValue(llave)
     rango3 = om.values(info["generos"],valor[0],valor[1])
     iterador = it.newIterator(rango3)
     suma = 0
+    diccionarios = mp.newMap()
+
     while it.hasNext(iterador):
         actu = it.next(iterador)
         iterardentro = it.newIterator(actu)
@@ -745,6 +771,7 @@ def requerimiento5(info,diccio,diccion,rangoinf,rangomay):
             actual = it.next(iterardentro)
             if mp.contains(diccionarioo,actual["created_at"]):
                 suma += 1
+        
     gene = tablageneros("Rock")
     llave = mp.get(gene,"Rock")
     valor = me.getValue(llave)
@@ -758,7 +785,7 @@ def requerimiento5(info,diccio,diccion,rangoinf,rangomay):
             actual = it.next(iterardentro)
             if mp.contains(diccionarioo,actual["created_at"]):
                 suma2 += 1
-    
+
     gene = tablageneros("Pop")
     llave = mp.get(gene,"Pop")
     valor = me.getValue(llave)
@@ -856,8 +883,8 @@ def requerimiento5(info,diccio,diccion,rangoinf,rangomay):
     total = suma+suma2+suma3+suma4+suma5+suma6+suma7+suma8+suma9
 
 
-    
-    return suma,suma2,suma3,suma4,suma5,suma6,suma7,suma8,suma9,total
+
+    return suma,suma2,suma3,suma4,suma5,suma6,suma7,suma8,suma9,total,diccionarioo
 
 
 
